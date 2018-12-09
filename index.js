@@ -6,28 +6,33 @@
     const output = document.getElementById('output');
     const spinner = document.getElementById('spinner');
 
-    function queryAPI(endpoint) {
-      return fetch(API_URL + endpoint).then(response => {
-        return response.ok
-          ? response.json()
-          : Promise.reject(Error("Unsuccessful response"));
-      });
+    async function queryAPI(endpoint) {
+        const response = await fetch(API_URL + endpoint);
+
+        if (response.ok) {
+          return response.json()
+        }
+
+        throw Error("Unsuccessful response");
     }
 
-    const promise = Promise.all([
-      queryAPI('films'),
-      queryAPI('planets')
-    ])
+    async function main() {
+      try {
+        const [films, planets] = await Promise.all([
+          queryAPI("films"),
+          queryAPI("planets")
+        ]);
 
-    promise.then(([films, planets]) => {
-      output.innerText =
-        `${films.length} films, ` +
-        `${planets.length} planets`
-    })
-    .finally(() => {
-      spinner.remove();
-    });
+        output.innerText = `${films.length} films, ` + `${planets.length} planets`;
 
+        spinner.remove();
+      } catch (error) {
+        console.warn(error);
+        output.innerText = ":(";
+      } finally {
+        spinner.remove();
+      }
+    }
 
-
+    main();
 })();
