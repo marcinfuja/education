@@ -14,10 +14,12 @@
     }
     // endregion
 
-    fetch(API_URL + "films")
+    fetch(API_URL + "movies")
       .then(response => {
         if (!response.ok) {
-          throw Error('Unssucessful response');
+          return Promise.reject(
+            new Error("unsuccessful response")
+          )
         }
         return response.json().then(films => {
           output.innerText = getFilmTitles(films);
