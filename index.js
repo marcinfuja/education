@@ -1,76 +1,28 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
-const expressjwt = require("express-jwt")
-const cors = require("cors");
+/* To run this file on a server, we are using httpster. 
+Type `httpster index.html -p 5000` in your console to start the server. */
 
-const app = express();
-const PORT = process.env.API_PORT || 8888;
-const users = [
-  {
-    id: 1,
-    username: "admin",
-    password: "admin"
-  },
-  {
-    id: 2,
-    username: "guest",
-    password: "guest"
-  }
-]
+const API_URL = "";
+const AUTH_URL = "";
 
-app.use(bodyParser.json());
-app.use(cors());
+let ACCESS_TOKEN;
 
-const jwtCheck = expressjwt({
-  secret: "mysupersecretkey"
+const headlineBtn = document.querySelector("#headline");
+const secretBtn = document.querySelector("#secret");
+const loginBtn = document.querySelector("#loginBtn");
+const logoutBtn = document.querySelector("#logoutBtn");
+
+headlineBtn.addEventListener("click", () => {
+
 });
 
-app.post('/login', (req, res) => {
-  if (!req.body.username || !req.body.password) {
-    res
-    .status(400)
-    .send("You need a username and password");
-    return;
-  }
+secretBtn.addEventListener("click", (event) => {
 
-  const user = users.find((user) => {
-    return user.username === req.body.username && user.password === req.body.password;
-  });
-
-  if (!user) {
-    res
-    .status(401)
-    .send("User not found")
-    return;
-  }
-
-  const token = jwt.sign({
-    sub: user.id,
-    username: user.username
-  }, "mysupersecretkey", {expiresIn: "3 hours"});
-
-  res
-  .status(200)
-  .send({access_token: token});
-})
-
-app.get('/resource', (req, res) => {
-  res
-  .status(200)
-  .send("Public resource, you can see this");
 });
 
-app.get('/resource/secret', jwtCheck, (req, res) => {
-  res
-  .status(200)
-  .send("Secret resource, you should be logged in to see this")
-})
+logoutBtn.addEventListener("click", (event) => {
 
-app.get('*', (req, res) => {
-  res.sendStatus(404);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
+loginBtn.addEventListener("click", (event) => {
+
 });
