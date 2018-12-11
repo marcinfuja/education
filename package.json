@@ -1,15 +1,19 @@
 {
-  "name": "serviceworker",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "http-server -p 8000",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "http-server": "^0.11.1"
+    "apollo-boost": "^0.1.22",
+    "graphql": "^14.0.2",
+    "react": "^16.4.2",
+    "react-apollo": "^2.3.1",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
